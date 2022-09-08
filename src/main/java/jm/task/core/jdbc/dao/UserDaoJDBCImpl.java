@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDaoJDBCImpl extends Util implements UserDao {
 
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
 
         String sql = """
                 CREATE TABLE IF NOT EXISTS `MyDB`.`users` (
@@ -26,7 +26,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         }
     }
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
 
         String sql = "DROP TABLE IF EXISTS users;";
 
@@ -38,7 +38,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     }
 
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
 
         String sql = "insert into users (name, lastName, age) values (?, ?, ?);";
 
@@ -52,7 +52,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         }
     }
 
-    public  void getLastUser() throws SQLException {
+    public  void getLastUser() {
         String sql = "SELECT * FROM users ORDER BY id DESC LIMIT 1;";
         try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
@@ -62,13 +62,13 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             user.setName(resultSet.getString("name"));
             user.setLastName(resultSet.getString("lastName"));
             user.setAge(resultSet.getByte("age"));
-            System.out.println(user.toString());
+            System.out.println(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id) {
 
         String sql = "delete from users where id=?;";
 
@@ -112,7 +112,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         return userList;
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
 
         String sql = "TRUNCATE TABLE users;";
 

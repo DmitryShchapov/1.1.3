@@ -10,19 +10,19 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
 
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
         userDaoJDBC.createUsersTable();
     }
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
         userDaoJDBC.dropUsersTable();
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
         userDaoJDBC.saveUser(name, lastName, age);
     }
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id) {
         userDaoJDBC.removeUserById(id);
     }
 
@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserService {
         return userDaoJDBC.getAllUsers();
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
         userDaoJDBC.cleanUsersTable();
     }
 
-    public void getLastUser() throws SQLException {
+    public void getLastUser() {
         userDaoJDBC.getLastUser();
     }
 }
