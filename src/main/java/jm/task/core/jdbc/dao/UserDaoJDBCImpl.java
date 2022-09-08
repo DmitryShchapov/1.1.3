@@ -11,26 +11,29 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void createUsersTable() throws SQLException {
 
-        String sql = "CREATE TABLE `MyDB`.`users` (\n" +
-                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `name` VARCHAR(45) NOT NULL,\n" +
-                "  `lastName` VARCHAR(45) NOT NULL,\n" +
-                "  `age` INT(3) NULL,\n" +
-                "  PRIMARY KEY (`id`));";
+        String sql = """
+                CREATE TABLE IF NOT EXISTS `MyDB`.`users` (
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `name` VARCHAR(45) NOT NULL,
+                `lastName` VARCHAR(45) NOT NULL,
+                `age` INT(3) NULL,
+                PRIMARY KEY (`id`));""";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.execute();
-        } catch (SQLException ignored) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public void dropUsersTable() throws SQLException {
 
-        String sql = "DROP TABLE users;";
+        String sql = "DROP TABLE IF EXISTS users;";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
-        } catch (SQLException ignored) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
