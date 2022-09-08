@@ -12,7 +12,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void createUsersTable() {
 
         String sql = """
-                CREATE TABLE IF NOT EXISTS `MyDB`.`users` (
+                CREATE TABLE IF NOT EXISTS users (
                 `id` INT NOT NULL AUTO_INCREMENT,
                 `name` VARCHAR(45) NOT NULL,
                 `lastName` VARCHAR(45) NOT NULL,
