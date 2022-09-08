@@ -40,22 +40,17 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
 
-        String sql = "insert into users (name, lastName, age) values (?, ?, ?);";
+        String sql1 = "insert into users (name, lastName, age) values (?, ?, ?);";
+        String sql2 = "SELECT * FROM users ORDER BY id DESC LIMIT 1;";
 
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql1);
+             Statement statement = connection.createStatement()) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public  void getLastUser() {
-        String sql = "SELECT * FROM users ORDER BY id DESC LIMIT 1;";
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(sql2);
             resultSet.next();
             User user = new User();
             user.setId(resultSet.getLong("id"));
@@ -67,6 +62,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             e.printStackTrace();
         }
     }
+
 
     public void removeUserById(long id) {
 
